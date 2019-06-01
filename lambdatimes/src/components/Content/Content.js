@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
+import styled from 'styled-components'
 
 import Tabs from './Tabs';
 import Cards from './Cards';
 
 // Importing our tab and card data. No need to change anything here.
 import { tabData, cardData } from '../../data';
+
+const ContentContainerDiv = styled.div`
+
+`
 
 export default class Content extends Component {
   constructor(props) {
@@ -17,7 +22,6 @@ export default class Content extends Component {
   }
 
   componentDidMount() {
-    // Once the component has mounted, get the data and reflect that data on the state.
     this.setState({tabs: tabData, cards: cardData})
   }
 
@@ -26,18 +30,6 @@ export default class Content extends Component {
   };
 
   filterCards = () => {
-    /* Right now this function only returns the cards on state.
-      We're going to make this function more dynamic
-      by using it to filter out our cards for when a tab is selcted
-      
-      Notice that we're passing this function to our <Cards /> component below.
-      This function returns an array of cards, so we can just pass it down as such.
-
-      Your algorithim for the logic here is as follows: 
-        - if the selected tab is 'all' it should return all 
-          of the items from cardData. 
-        - else, it should only return those cards whose 'tab' matched this.state.selected.
-    */
     let newCardData;
     if(this.state.selected === 'all')
     {
@@ -54,10 +46,10 @@ export default class Content extends Component {
 
   render() {
     return (
-      <div className="content-container">
+      <ContentContainerDiv>
         <Tabs tabs={this.state.tabs} selectedTab={this.state.selected} selectTabHandler={this.changeSelected} />
         <Cards cards={this.filterCards()} />
-      </div>
+      </ContentContainerDiv>
     );
   }
 }
